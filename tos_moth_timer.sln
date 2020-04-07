@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29911.84
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tos_moth_timer", "tos_moth_timer\tos_moth_timer.csproj", "{DB76E0AB-7EDE-48A5-A43C-B934EC30E7A1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DB76E0AB-7EDE-48A5-A43C-B934EC30E7A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DB76E0AB-7EDE-48A5-A43C-B934EC30E7A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DB76E0AB-7EDE-48A5-A43C-B934EC30E7A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DB76E0AB-7EDE-48A5-A43C-B934EC30E7A1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {00D64D70-113B-4EA0-B37B-9AC2001B92AC}
+	EndGlobalSection
+EndGlobal
