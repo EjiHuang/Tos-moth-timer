@@ -1,6 +1,10 @@
 ﻿using System;
 using System.Media;
+using System.Runtime.InteropServices;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Threading;
 
@@ -11,7 +15,8 @@ namespace tos_moth_timer
     /// </summary>
     public partial class MainWindow : Window
     {
-        public int _time = 0;
+        private int _time = 0;
+        private int _interval = 75;
         private readonly DispatcherTimer _timer;
         SoundPlayer sound1 = new SoundPlayer(Properties.Resources._60);
         SoundPlayer sound2 = new SoundPlayer(Properties.Resources._75);
@@ -26,33 +31,6 @@ namespace tos_moth_timer
             // init timer
             _timer = new DispatcherTimer(new TimeSpan(0, 0, 1), DispatcherPriority.Normal, Timer_Tick, Dispatcher);
             _timer.Stop();
-
-            // init hook
-            // _hook = new KeyboardHook();
-            // _hook.KeyUp += _hook_KeyUp;
-        }
-
-        /// <summary>
-        /// 全局键盘hook
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void _hook_KeyUp(object sender, HookEventArgs e)
-        {
-            if (e.Alt == true)
-            {
-                if (e.Key == System.Windows.Forms.Keys.F11)
-                {
-                    txt_timer.Text = (++_time).ToString();
-                    _timer.Start();
-                }
-                if (e.Key == System.Windows.Forms.Keys.F12)
-                {
-                    _time = 0;
-                    txt_timer.Text = _time.ToString();
-                    _timer.Stop();
-                }
-            }
         }
 
         /// <summary>
@@ -65,7 +43,7 @@ namespace tos_moth_timer
             ++_time;
             txt_timer.Text = _time.ToString();
 
-            if (_time >= 60)
+            if (_time >= (_interval - 15))
             {
                 txt_timer.Foreground = Brushes.Red;
             }
@@ -74,12 +52,12 @@ namespace tos_moth_timer
                 txt_timer.Foreground = Brushes.Green;
             }
 
-            if (_time == 60)
+            if (_time == (_interval - 15))
             {
                 // 语音提示15秒后注视
                 sound1.Play();
             }
-            else if (_time == 75)
+            else if (_time == _interval)
             {
                 // 语音提示出现注视
                 sound2.Play();
@@ -97,6 +75,9 @@ namespace tos_moth_timer
         {
             txt_timer.Text = (++_time).ToString();
             _timer.Start();
+
+            mi_start.IsChecked = true;
+            mi_stop.IsChecked = false;
         }
 
         /// <summary>
@@ -108,7 +89,11 @@ namespace tos_moth_timer
         {
             _time = 0;
             txt_timer.Text = _time.ToString();
+            txt_timer.Foreground = Brushes.Green;
             _timer.Stop();
+
+            mi_start.IsChecked = false;
+            mi_stop.IsChecked = true;
         }
 
         /// <summary>
@@ -119,10 +104,18 @@ namespace tos_moth_timer
         private void Help_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show(
-                "快捷键：" + Environment.NewLine +
-                "  启动(Alt+F11)、停止(Alt+F12)" + Environment.NewLine +
-                "作者主页：" + Environment.NewLine +
-                "  https://github.com/JerryAJ", "Help", MessageBoxButton.OK, MessageBoxImage.Information);
+                "项目主页：" + Environment.NewLine +
+                "  https://github.com/JerryAJ/Tos-moth-timer", "Help", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        /// <summary>
+        /// 间隔改变
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void tb_interval_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+            _interval = int.Parse((sender as TextBox).Text);
         }
     }
 }

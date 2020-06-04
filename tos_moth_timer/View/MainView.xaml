@@ -27,8 +27,29 @@
                 <MenuItem Header="退出(X)" />
             </MenuItem>
             <MenuItem Header="操作(C)">
-                <MenuItem Click="btn_start_Click" Header="启动(Alt+F11)" />
-                <MenuItem Click="btn_stop_Click" Header="停止(Alt+F12)" />
+                <MenuItem
+                    x:Name="mi_start"
+                    Click="btn_start_Click"
+                    Header="启动" />
+                <MenuItem
+                    x:Name="mi_stop"
+                    Click="btn_stop_Click"
+                    Header="停止"
+                    IsChecked="True" />
+                <MenuItem>
+                    <MenuItem.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="间隔：" />
+                            <TextBox
+                                x:Name="tb_interval"
+                                Width="30"
+                                Text="75"
+                                TextAlignment="Left"
+                                TextChanged="tb_interval_TextChanged" />
+                            <TextBlock Text="秒" />
+                        </StackPanel>
+                    </MenuItem.Header>
+                </MenuItem>
             </MenuItem>
             <MenuItem Header="帮助(H)">
                 <MenuItem Click="Help_Click" Header="关于(A)" />
