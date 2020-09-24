@@ -1,12 +1,14 @@
-﻿using System;
-using System.Media;
-using System.Runtime.InteropServices;
-using System.Threading;
-using System.Threading.Tasks;
+﻿using Newtonsoft.Json;
+using SpeechLib;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Threading;
+using tos_moth_timer.View;
 
 namespace tos_moth_timer
 {
@@ -16,16 +18,20 @@ namespace tos_moth_timer
     public partial class MainWindow : Window
     {
         private int _time = 0;
-        private int _interval = 75;
         private readonly DispatcherTimer _timer;
-        SoundPlayer sound1 = new SoundPlayer(Properties.Resources._60);
-        SoundPlayer sound2 = new SoundPlayer(Properties.Resources._75);
+        private readonly SpVoice speech = new SpVoice();
+        private readonly string pitch = "<pitch absmiddle=\"0\"/>";
 
-        // keyboard hook
-        // private KeyboardHook _hook;
+        public SettingInfo setting;
+        public List<SettingInfo> settings;
 
         public MainWindow()
         {
+            // load setting.json
+            string json = File.ReadAllText("settings.json", Encoding.Default);
+            settings = JsonConvert.DeserializeObject<List<SettingInfo>>(json);
+            setting = settings[settings[0].ReadinessTime + 1];
+
             InitializeComponent();
 
             // init timer
@@ -43,7 +49,7 @@ namespace tos_moth_timer
             ++_time;
             txt_timer.Text = _time.ToString();
 
-            if (_time >= (_interval - 15))
+            if (_time >= (setting.Interval - setting.ReadinessTime))
             {
                 txt_timer.Foreground = Brushes.Red;
             }
@@ -52,18 +58,30 @@ namespace tos_moth_timer
                 txt_timer.Foreground = Brushes.Green;
             }
 
-            if (_time == (_interval - 15))
+            if (_time == (setting.Interval - setting.ReadinessTime))
             {
-                // 语音提示15秒后注视
-                sound1.Play();
+                // 语音提示装备
+                // sound1.Play();
+                SpeechText(setting.Sound1);
             }
-            else if (_time == _interval)
+            else if (_time == setting.Interval)
             {
-                // 语音提示出现注视
-                sound2.Play();
+                // 语音提示开始
+                // sound2.Play();
+                SpeechText(setting.Sound2);
                 // 重置
                 _time = 0;
             }
+        }
+
+        /// <summary>
+        /// Speech something?
+        /// </summary>
+        /// <param name="s"></param>
+        private void SpeechText(string s)
+        {
+            speech.Speak(string.Empty, SpeechVoiceSpeakFlags.SVSFPurgeBeforeSpeak);
+            speech.Speak(pitch + s, SpeechVoiceSpeakFlags.SVSFlagsAsync);
         }
 
         /// <summary>
@@ -103,19 +121,21 @@ namespace tos_moth_timer
         /// <param name="e"></param>
         private void Help_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show(
-                "项目主页：" + Environment.NewLine +
-                "  https://github.com/JerryAJ/Tos-moth-timer", "Help", MessageBoxButton.OK, MessageBoxImage.Information);
+            System.Diagnostics.Process.Start("https://github.com/EjiHuang/Tos-moth-timer");
         }
 
-        /// <summary>
-        /// 间隔改变
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void tb_interval_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        private void MenuItem_Setting_Click(object sender, RoutedEventArgs e)
         {
-            _interval = int.Parse((sender as TextBox).Text);
+            new SettingView(this).ShowDialog();
         }
+    }
+
+    public class SettingInfo
+    {
+        public string Title { get; set; }
+        public string Sound1 { get; set; }
+        public string Sound2 { get; set; }
+        public int Interval { get; set; }
+        public int ReadinessTime { get; set; }
     }
 }

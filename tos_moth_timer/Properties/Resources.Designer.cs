@@ -59,23 +59,5 @@ namespace tos_moth_timer.Properties {
                 resourceCulture = value;
             }
         }
-        
-        /// <summary>
-        ///   查找类似于 System.IO.MemoryStream 的 System.IO.UnmanagedMemoryStream 类型的本地化资源。
-        /// </summary>
-        internal static System.IO.UnmanagedMemoryStream _60 {
-            get {
-                return ResourceManager.GetStream("_60", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似于 System.IO.MemoryStream 的 System.IO.UnmanagedMemoryStream 类型的本地化资源。
-        /// </summary>
-        internal static System.IO.UnmanagedMemoryStream _75 {
-            get {
-                return ResourceManager.GetStream("_75", resourceCulture);
-            }
-        }
     }
 }

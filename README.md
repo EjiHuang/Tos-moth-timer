@@ -1,2 +1,2 @@
 # Tos-moth-timer
-蛾王注视计时预警器
+TOS通用计时器

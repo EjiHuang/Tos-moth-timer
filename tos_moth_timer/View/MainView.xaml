@@ -5,7 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:tos_moth_timer"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Title="金蛾注视计时器"
+    Title="TOS通用计时器"
     Width="200"
     Height="130"
     ResizeMode="NoResize"
@@ -24,7 +24,7 @@
             BorderBrush="#808080"
             BorderThickness="0,0,0,1">
             <MenuItem Header="文件(F)">
-                <MenuItem Header="退出(X)" />
+                <MenuItem Click="MenuItem_Setting_Click" Header="设置(S)" />
             </MenuItem>
             <MenuItem Header="操作(C)">
                 <MenuItem
@@ -36,7 +36,7 @@
                     Click="btn_stop_Click"
                     Header="停止"
                     IsChecked="True" />
-                <MenuItem>
+                <!--<MenuItem>
                     <MenuItem.Header>
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="间隔：" />
@@ -49,10 +49,10 @@
                             <TextBlock Text="秒" />
                         </StackPanel>
                     </MenuItem.Header>
-                </MenuItem>
+                </MenuItem>-->
             </MenuItem>
             <MenuItem Header="帮助(H)">
-                <MenuItem Click="Help_Click" Header="关于(A)" />
+                <MenuItem Click="Help_Click" Header="项目主页(A)" />
             </MenuItem>
         </Menu>
         <!--#endregion-->

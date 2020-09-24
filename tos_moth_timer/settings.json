@@ -1,0 +1,23 @@
+[
+  {
+    "Title": "系统使用",
+    "Sound1": "请不要修改",
+    "Sound2": "ReadinessTime字段保存当前选中序号",
+    "Interval": 0,
+    "ReadinessTime": 0
+  },
+  {
+    "Title": "金蛾注视提示",
+    "Sound1": "15秒注视",
+    "Sound2": "开始注视",
+    "Interval": 75,
+    "ReadinessTime": 15
+  },
+  {
+    "Title": "巫女后撤提示",
+    "Sound1": "10秒后撤",
+    "Sound2": "开始后撤",
+    "Interval": 60,
+    "ReadinessTime": 10
+  }
+]
